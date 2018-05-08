@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+	<button class = 'btn'>Start/Reset</button>
+
+	<div class='gridContainer'>
+
+	</div>
+
+</body>
+
+  <script>
+
+  	
+
+  var squareSize = "";
+	
+	var squares = [];
+
+	var gridNo = 0;
+	const gridContainer = document.querySelector(".gridContainer");  // grid
+
+
+	function gridCreate(){
+
+		for(var i=0; i<gridNo; i++){  //creates loop that populates grid using array
+
+			squares[i] = document.createElement('div');
+  			
+        squares[i].style.backgroundColor = "black";
+        squares[i].style.display = "inline-block";
+        //squares[i].setAttribute("style","background-color:grey; display:inline-block");
+        squares[i].style.opacity = 0.0;
+  			squares[i].style.height = squareSize;
+  			squares[i].style.width = squareSize;
+  			gridContainer.appendChild(squares[i]);
+  			
+		}
+  		return;
+  }
+
+  
+  function addListeners(){  //adds event listener and function that darkens squares
+
+      squares.forEach((squares) => {
+        
+        squares.addEventListener('mouseover', () =>{
+          if(squares.style.opacity<1.0){
+          squares.style.opacity = parseFloat(squares.style.opacity) + 0.1;//explain parseFloat
+          }
+        });
+      });
+    }
+
+
+
+  
+
+
+  	var resetBtn = document.querySelector(".btn");
+  	resetBtn.addEventListener('click', () =>{ //adds listener to reset button and stores the value entered in prompt, then creates grid and adds listeners to each square
+  		if (gridNo != 0){ // loop that removes old grid
+  			for(var i=0; i<gridNo; i++){
+  				gridContainer.removeChild(squares[i]);
+  			}
+  		}
+  		gridNo = prompt("Please enter the number of squares you would like each side of the grid");
+  		if(gridNo>100){ // to stop user enetering too high a number and crashing browser
+  			gridno = prompt("Please enter a number lower than 100");
+  		}
+
+  		squareSize = (800/gridNo) + "px";
+  		gridNo = gridNo * gridNo;
+  		gridCreate();
+  		addListeners();
+
+  		
+  	});
+
+  	
+
+  	</script>
+  
+  
+
+</html>
